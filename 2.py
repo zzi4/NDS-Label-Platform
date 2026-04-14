@@ -198,6 +198,15 @@ def init_db():
         """)
 
 # ─── 数据加载（带缓存） ───────────────────────────────────────────────
+def _resolve_img(path: str) -> str:
+    """将相对路径（frames/...）解析为基于脚本目录的绝对路径"""
+    if not path:
+        return path
+    p = Path(path)
+    if not p.is_absolute():
+        p = _BASE / p
+    return str(p)
+
 @st.cache_data(ttl=600)
 def load_location_groups() -> dict:
     if not INDEX_FILE.exists():
@@ -211,7 +220,8 @@ def load_location_groups() -> dict:
             groups[l2] = {"l2":l2,"l1":l1,"city":extract_city(l1),
                           "total_duration":0.0,"days":[],"all_reps":[]}
         groups[l2]["total_duration"] += ds.get("total_duration", 0)
-        reps = ds.get("representatives", [])
+        reps = [{**r, "image_path": _resolve_img(r.get("image_path",""))}
+                for r in ds.get("representatives", [])]
         groups[l2]["days"].append({
             "date":         ds.get("date",""),
             "date_display": ds.get("date_display",""),
@@ -271,7 +281,7 @@ def load_df() -> pd.DataFrame:
         if INDEX_FILE.exists():
             with open(INDEX_FILE, encoding="utf-8") as _f:
                 _idx = json.load(_f)
-            _fp2img = {s["folder_path"]: s["image_path"]
+            _fp2img = {s["folder_path"]: _resolve_img(s["image_path"])
                        for s in _idx.get("sessions", [])
                        if s.get("image_path")}
             _mask = df["image_path"].isna() | (df["image_path"] == "")
