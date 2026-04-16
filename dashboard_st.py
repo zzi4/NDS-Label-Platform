@@ -207,9 +207,12 @@ def _resolve_img(path: str) -> str:
         return str(_BASE / p)
     if p.exists():
         return str(p)
-    # 绝对路径在当前环境不存在（如 NAS 路径或本机路径），尝试在脚本目录下按文件名查找
-    candidate = _BASE / p.name
-    return str(candidate) if candidate.exists() else str(p)
+    # 绝对路径在当前环境不存在，依次在已知子目录下按文件名查找
+    for subdir in ("frames", "photo", ""):
+        candidate = _BASE / subdir / p.name if subdir else _BASE / p.name
+        if candidate.exists():
+            return str(candidate)
+    return str(p)
 
 @st.cache_data(ttl=600)
 def load_location_groups() -> dict:
