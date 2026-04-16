@@ -28,9 +28,9 @@ import cv2
 
 NUM_WORKERS = os.cpu_count() or 4
 
-VIDEO_ROOT = "/mnt/nas/ADSafety/ADSafety/Aerial_Raw_Videos"
+VIDEO_ROOT = "/mnt/nas/ADSafety/ADSafety/Aerial_Raw_Videos/2025-Changchun-AerialVideo-V1/"
 OUTPUT_ROOT = "/mnt/nas/Processing_data/Label_cites"
-INDEX_FILE = "/home/stu1/Projects/LabelWork/sessions_index.json"
+INDEX_FILE = "/home/stu6/Projects/LabelWork/sessions_index.json"
 VIDEO_EXTS = {".mp4", ".MP4"}
 
 

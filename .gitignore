@@ -3,9 +3,16 @@ labeling_data_v2.db
 __pycache__/
 *.pyc
 vlm_cache.json
+vlm_run.log
+streamlit_2.log
+*.log
 uploaded_images/
 neiwang/
 fix_missing_durations.py
 fix_missing_frames.py
 fix_propagate_labels.py
 copy_frames.py
+GBT+45312-2025(2).pdf
+.claude/
+fix_photo_db.py
+streamlit_app.py
