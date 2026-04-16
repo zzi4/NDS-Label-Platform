@@ -1148,3 +1148,4 @@ Traceback (most recent call last):
   File "/home/stu6/anaconda3/envs/label/lib/python3.11/site-packages/pandas/io/formats/style.py", line 98, in _mpl
     raise ImportError(f"{func.__name__} requires matplotlib.")
 ImportError: background_gradient requires matplotlib.
+  Stopping...
