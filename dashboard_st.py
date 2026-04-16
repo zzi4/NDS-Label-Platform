@@ -1673,11 +1673,11 @@ def main():
 </div>
 """, unsafe_allow_html=True)
 
-    tab1, tab2 = st.tabs(["🏷️ 地点标注", "📊 统计看板"])
+    tab1, tab2 = st.tabs(["📊 统计看板", "🏷️ 地点标注"])
     with tab1:
-        page_label()
-    with tab2:
         page_dashboard()
+    with tab2:
+        page_label()
 
 
 if __name__ == "__main__":
