@@ -199,13 +199,17 @@ def init_db():
 
 # ─── 数据加载（带缓存） ───────────────────────────────────────────────
 def _resolve_img(path: str) -> str:
-    """将相对路径（frames/...）解析为基于脚本目录的绝对路径"""
+    """将路径解析为基于脚本目录的绝对路径；绝对路径不存在时尝试取文件名在 _BASE 下查找"""
     if not path:
         return path
     p = Path(path)
     if not p.is_absolute():
-        p = _BASE / p
-    return str(p)
+        return str(_BASE / p)
+    if p.exists():
+        return str(p)
+    # 绝对路径在当前环境不存在（如 NAS 路径或本机路径），尝试在脚本目录下按文件名查找
+    candidate = _BASE / p.name
+    return str(candidate) if candidate.exists() else str(p)
 
 @st.cache_data(ttl=600)
 def load_location_groups() -> dict:
@@ -284,7 +288,8 @@ def load_df() -> pd.DataFrame:
             _fp2img = {s["folder_path"]: _resolve_img(s["image_path"])
                        for s in _idx.get("sessions", [])
                        if s.get("image_path")}
-            _mask = df["image_path"].isna() | (df["image_path"] == "")
+            _mask = df["image_path"].isna() | (df["image_path"] == "") | \
+                    df["image_path"].apply(lambda p: bool(p) and not Path(str(p)).exists())
             df.loc[_mask, "image_path"] = df.loc[_mask, "folder_path"].map(_fp2img)
     except Exception:
         pass
