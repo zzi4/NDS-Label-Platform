@@ -296,6 +296,10 @@ def load_df() -> pd.DataFrame:
             df.loc[_mask, "image_path"] = df.loc[_mask, "folder_path"].map(_fp2img)
     except Exception:
         pass
+    # 第二层兜底：对所有路径仍不存在的行（含 PHOTO 地点），用 _resolve_img 在 frames/ 下查找
+    df["image_path"] = df["image_path"].apply(
+        lambda p: _resolve_img(str(p)) if pd.notna(p) and p else p
+    )
     def _city(p):
         if not p or "/" not in p: return "手动录入"
         prefix = p.split("/")[0]
