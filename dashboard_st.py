@@ -465,7 +465,7 @@ def page_label():
             _nd  = sum(1 for _r in _v["all_reps"] if _r["folder_path"] in labeled_fps)
             _dot = "✅" if _nd == _nr else ("🔶" if _nd > 0 else "⬜")
             if st.button(f"{_dot} {_v['city']} · {_k}  ({_nd}/{_nr})",
-                         key=f"loc_{_k}", use_container_width=True):
+                         key=f"loc_{_k}", width="stretch"):
                 st.session_state.sel_loc = _k
 
     with _col_r:
@@ -514,7 +514,7 @@ def page_label():
                 static_tags = render_schema_section(STATIC_SCHEMA, ex.get("sections",{}), f"st_{l2}")
                 submitted   = st.form_submit_button(
                     f"💾 保存静态标签 → 应用到本地点全部 {n_rep} 张代表图",
-                    type="primary", use_container_width=True)
+                    type="primary", width="stretch")
             if submitted:
                 save_static_to_location(l2, loc, top_cat, top_sub, static_tags)
                 load_labeled_fps.clear(); load_df.clear()
@@ -540,7 +540,7 @@ def page_label():
                     for ci, rep in enumerate(dreps):
                         with img_cols[ci]:
                             p = Path(rep.get("image_path",""))
-                            st.image(str(p), use_container_width=True) if p.exists() else st.markdown("🖼 图片不存在")
+                            st.image(str(p), width="stretch") if p.exists() else st.markdown("🖼 图片不存在")
                             done_mark = "✅" if rep["folder_path"] in labeled_fps else "⬜"
                             st.markdown(
                                 f"<div style='font-size:12px;color:#1565C0;text-align:center'>"
@@ -618,7 +618,7 @@ def _render_loc_detail(df_f: pd.DataFrame, loc_row):
         for col, (bid, binfo) in zip(batch_cols, batch_map.items()):
             with col:
                 if binfo["image"]:
-                    st.image(binfo["image"], use_container_width=True)
+                    st.image(binfo["image"], width="stretch")
                 else:
                     st.markdown(
                         "<div style='height:90px;background:linear-gradient(135deg,#1a3a6e,#2d6eaa);"
@@ -638,7 +638,7 @@ def _render_loc_detail(df_f: pd.DataFrame, loc_row):
         if has_img:
             c_img, c_info = st.columns([1, 2])
             with c_img:
-                st.image(img_path, use_container_width=True)
+                st.image(img_path, width="stretch")
         else:
             c_info = st.container()
 
@@ -750,7 +750,7 @@ def _render_loc_detail(df_f: pd.DataFrame, loc_row):
                            showline=False, zeroline=False,
                            tickfont=dict(size=11, color="#4a6fa5")),
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     st.markdown("<hr style='margin:10px 0'>", unsafe_allow_html=True)
 
@@ -785,7 +785,7 @@ def _render_location_wall(df_f: pd.DataFrame):
             with col:
                 img_path = str(row.get("image_path", "") or "")
                 if img_path and Path(img_path).exists():
-                    st.image(img_path, use_container_width=True)
+                    st.image(img_path, width="stretch")
                 else:
                     st.markdown(
                         "<div style='height:110px;background:linear-gradient(135deg,#1a3a6e,#2d6eaa);"
@@ -805,7 +805,7 @@ def _render_location_wall(df_f: pd.DataFrame):
                     + "</div>", unsafe_allow_html=True
                 )
                 if st.button("▾ 收起" if is_open else "▸ 查看标签",
-                             key=f"loc_btn_{fp}", use_container_width=True):
+                             key=f"loc_btn_{fp}", width="stretch"):
                     st.session_state["loc_open"] = None if is_open else fp
                     st.rerun()
                 if is_open:
@@ -990,7 +990,7 @@ def page_dashboard():
             if key:
                 is_open = st.session_state["kpi_open"] == key
                 if st.button("▾ 收起" if is_open else "▸ 展开详情",
-                             key=f"kpi_btn_{key}", use_container_width=True):
+                             key=f"kpi_btn_{key}", width="stretch"):
                     st.session_state["kpi_open"] = None if is_open else key
                     st.rerun()
             else:
@@ -1013,7 +1013,7 @@ def page_dashboard():
             "top_road_category": "道路主类", "top_road_subcategory": "道路子类",
             "duration": "时长", "collection_time": "采集时间", "source": "来源"
         })
-        st.dataframe(disp, use_container_width=True, height=400)
+        st.dataframe(disp, width="stretch", height=400)
 
     elif _open == "cities":
         st.markdown("#### 🌆 各城市概览")
@@ -1054,7 +1054,7 @@ def page_dashboard():
             fig.update_traces(textposition="outside", textfont=dict(size=11, color="#0d2d5e"),
                               marker_line_width=0, opacity=0.88)
             fig.update_layout(**_cl(), showlegend=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
     with c2:
         ld = (df_f.groupby("location_name").agg(时长=("duration","sum")).reset_index()
               .assign(**{"时长(h)": lambda x: x["时长"] / 60})
@@ -1065,7 +1065,7 @@ def page_dashboard():
                          labels={"location_name":"地点","时长(h)":"时长(h)"})
             fig.update_traces(marker_line_width=0, opacity=0.88)
             fig.update_layout(**_cl(), showlegend=False, xaxis_tickangle=-45)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     # ── 采集时段 ──
     st.markdown("### 🕐 采集时段分布")
@@ -1079,7 +1079,7 @@ def page_dashboard():
         fig.update_traces(textposition="outside", textfont=dict(size=11, color="#0d2d5e"),
                           marker_line_width=0, opacity=0.88)
         fig.update_layout(**_cl(), showlegend=False)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     # ── 道路类型旭日图 ──
     st.markdown("### 🛣️ 道路类型分布")
@@ -1097,7 +1097,7 @@ def page_dashboard():
                               title="道路类型层级分布", color_discrete_sequence=BLUE)
             fig.update_traces(textfont=dict(size=11))
             fig.update_layout(**_cl(), margin=dict(t=52,l=0,r=0,b=0))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     # ── 标签分布 ──
     st.markdown("### 🏷️ 标签分布")
@@ -1124,7 +1124,7 @@ def page_dashboard():
                               marker_line_width=0, opacity=0.88)
             fig.update_layout(**_cl(), showlegend=False, xaxis_tickangle=-30)
         fig.update_layout(**_cl())
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     else:
         st.info("该维度暂无数据")
 
@@ -1139,13 +1139,13 @@ def page_dashboard():
     k1, k2 = keys[lbls.index(s1)], keys[lbls.index(s2)]
     if k1 != k2 and all(k in df_f.columns for k in (k1, k2)):
         pivot = df_f.groupby([k1, k2]).size().unstack(fill_value=0)
-        st.dataframe(pivot.style.background_gradient(cmap="Blues"), use_container_width=True)
+        st.dataframe(pivot.style.background_gradient(cmap="Blues"), width="stretch")
 
     with st.expander("📋 原始数据"):
         cols_show = ["source","folder_path","city","location_name","top_road_category",
                      "top_road_subcategory","collection_time","duration"]
         st.dataframe(df_f[[c for c in cols_show if c in df_f.columns]].head(200),
-                     use_container_width=True)
+                     width="stretch")
 
 # ─── 页面 3：新增地点 ─────────────────────────────────────────────────
 _PHOTO_META = {
@@ -1208,7 +1208,7 @@ def page_photo():
             with cols[ci]:
                 img_p = Path(row.get("image_path") or "")
                 if img_p.exists():
-                    st.image(str(img_p), use_container_width=True)
+                    st.image(str(img_p), width="stretch")
                 else:
                     st.markdown("<div style='background:#f0f4fa;border-radius:8px;padding:30px;"
                                 "text-align:center;color:#8899aa;border:2px dashed #c5d5e8'>"
@@ -1311,7 +1311,7 @@ def page_add():
         st.markdown("#### 🎬 动态标签")
         dynamic_tags = render_schema_section(DYNAMIC_SCHEMA, {}, "add_dy")
 
-        submitted = st.form_submit_button("💾 保存新地点", type="primary", use_container_width=True)
+        submitted = st.form_submit_button("💾 保存新地点", type="primary", width="stretch")
 
     if submitted:
         if not loc_name.strip():
