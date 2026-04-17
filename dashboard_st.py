@@ -444,8 +444,7 @@ def _cl() -> dict:
         coloraxis_showscale=False,
     )
 
-# ─── 页面 1：地点标注 ─────────────────────────────────────────────────
-def page_label():
+
     loc_groups = load_location_groups()
     if not loc_groups:
         st.error(f"未找到索引文件：{INDEX_FILE}"); return
