@@ -92,3 +92,9 @@ minimal repr-hidden `api_key` config and returns the same response structure as
 clients, forbid database access, and do not read private worker credentials or
 call a real model. V2 production activation and bulk reannotation require later
 review and are outside this change.
+
+## Initial real trial, 2026-11-12
+
+Eight existing representative JPEGs were submitted through the isolated runner to `deepseek-flash`. All eight returned complete structures accepted by V2, using27,439 total reported tokens. This is format-validation evidence, not an accuracy measurement. In the local review report, sample04 has a scene/lane-count concern and sample08 has lane-evidence/material concerns. No production annotation or queue was written; selected source label hashes/revisions/versions matched their pretrial baseline.
+
+The compatible statistics reader was deployed through [statistics PR #53](https://github.com/AutoZYX-Labs/NDS-Statistics-Platform/pull/53). V1 raw results remain available and marked display-only projections can be inspected in the default core view. Production V2 activation and bulk relabeling remain pending user review. Trial images/raw responses are not in this repository or public publication.
