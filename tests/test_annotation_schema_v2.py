@@ -54,7 +54,7 @@ def test_complete_twelve_field_envelope_and_stored_array_are_accepted_without_mu
     labels[0]['values'].append('高速路')
     assert payload['labels'][0]['values'] == []
     assert schema.SCHEMA_VERSION == 'aerial_annotation_v2'
-    assert schema.PROMPT_VERSION == 'battery-frame-core-v2'
+    assert schema.PROMPT_VERSION == 'battery-frame-core-v2.1'
 
 
 def test_taxonomy_exposes_exact_twelve_codes_enums_and_cardinality():

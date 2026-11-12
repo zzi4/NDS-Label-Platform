@@ -81,7 +81,7 @@ def test_trial_sends_one_call_per_sample_with_v2_prompt_budget_and_saves_private
     saved = json.loads((result_dir / 'sample-0.json').read_text())
     assert saved['raw_content'] == complete_response()['raw_content']
     assert saved['schema_version'] == 'aerial_annotation_v2'
-    assert saved['prompt_version'] == 'battery-frame-core-v2'
+    assert saved['prompt_version'] == 'battery-frame-core-v2.1'
     assert len(saved['prompt_sha256']) == 64
     assert len(saved['frame_sha256']) == 64
     assert saved['usage'] == {'prompt_tokens': 2, 'completion_tokens': 3, 'total_tokens': 5}

@@ -1,9 +1,18 @@
 # Core representative-frame annotation V2
 
 `annotation_schema_v2.py` defines the isolated `aerial_annotation_v2` contract and
-`battery-frame-core-v2` prompt. The exact twelve-field taxonomy is in
+`battery-frame-core-v2.1` candidate prompt. The exact twelve-field taxonomy is in
 `data/annotation-fields-v2.json`. V1 remains available in `annotation_schema.py`;
 the active worker, its defaults, production database and queues are unchanged.
+
+The initial eight real trials used `battery-frame-core-v2`; their prompt text,
+responses and hashes remain unchanged. The user identified sample04 as 城市街巷.
+Candidate v2.1 clarifies the visible distinction between a main traffic corridor
+and a small street serving its frontage, and excludes roadside parking spaces
+from lane counts. Building continuity, parked cars or a passing bus are not
+sufficient to establish either class. This candidate has not had another real
+model trial; the original lane result remains pending review. User feedback is
+recorded separately from model labels, without writing production annotations.
 
 `FIELD_DEFINITIONS` exposes the taxonomy; `definitions()` returns a fresh copy.
 `build_annotation_prompt()` includes the complete taxonomy and visual rules.
