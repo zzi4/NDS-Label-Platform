@@ -1,0 +1,144 @@
+[
+  {
+    "code": "scene.type",
+    "name": "道路场景类型",
+    "values": [
+      "高速路",
+      "快速路",
+      "城市主干路",
+      "城市街巷",
+      "十字路口",
+      "环岛",
+      "停车区域",
+      "园区道路"
+    ],
+    "multi": false,
+    "unobservable": false
+  },
+  {
+    "code": "road.lane.count",
+    "name": "单向可见车道数量",
+    "values": [
+      "单车道",
+      "双车道",
+      "三车道",
+      "四车道及以上"
+    ],
+    "multi": false,
+    "unobservable": false
+  },
+  {
+    "code": "road.surface.material",
+    "name": "路面材质",
+    "values": [
+      "沥青",
+      "混凝土",
+      "未铺装",
+      "其他铺装"
+    ],
+    "multi": false,
+    "unobservable": false
+  },
+  {
+    "code": "road.surface.condition",
+    "name": "路面状态",
+    "values": [
+      "干燥",
+      "潮湿",
+      "积水",
+      "积雪",
+      "结冰",
+      "泥泞"
+    ],
+    "multi": false,
+    "unobservable": false
+  },
+  {
+    "code": "road.edge.type",
+    "name": "道路边缘",
+    "values": [
+      "路缘石",
+      "护栏 (金属)",
+      "护栏 (混凝土)",
+      "草地/泥土",
+      "无物理隔离"
+    ],
+    "multi": true,
+    "unobservable": false
+  },
+  {
+    "code": "traffic.signal",
+    "name": "信号灯可见性",
+    "values": [
+      "有"
+    ],
+    "multi": false,
+    "unobservable": false
+  },
+  {
+    "code": "traffic.sign",
+    "name": "标志牌可见性",
+    "values": [
+      "有"
+    ],
+    "multi": false,
+    "unobservable": false
+  },
+  {
+    "code": "traffic.marking",
+    "name": "地面标线",
+    "values": [
+      "实线",
+      "虚线",
+      "双黄线",
+      "导流线",
+      "斑马线",
+      "标线磨损"
+    ],
+    "multi": true,
+    "unobservable": false
+  },
+  {
+    "code": "dynamic.motor_vehicle",
+    "name": "机动车粗类",
+    "values": [
+      "小型机动车",
+      "大型客车",
+      "货车",
+      "其他机动车"
+    ],
+    "multi": true,
+    "unobservable": false
+  },
+  {
+    "code": "dynamic.vru",
+    "name": "行人／骑行者",
+    "values": [
+      "行人",
+      "骑行者"
+    ],
+    "multi": true,
+    "unobservable": false
+  },
+  {
+    "code": "dynamic.obstacle",
+    "name": "明显障碍物",
+    "values": [
+      "有"
+    ],
+    "multi": false,
+    "unobservable": false
+  },
+  {
+    "code": "environment.light.intensity",
+    "name": "画面光照",
+    "values": [
+      "正常",
+      "强光/逆光",
+      "弱光/昏暗",
+      "黑暗"
+    ],
+    "multi": false,
+    "unobservable": false
+  }
+]
